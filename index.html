@@ -1,12 +1,95 @@
 <!DOCTYPE html>
-<html>
-  <h1>About me</a></h1>
-  <p>Hi,My name is chenwei. I am a developer.</p>
-  <h2>My Research</h2>
-  <ul>
-    <li class="list">AI Infrastructure</li>
-    <li class="list">LLM Algorithm</li>
-    <li class="list">LLM for System Engineering</li>
-  </ul>
-  <a href="mailto:chenpumo@outlook.com">send email to me</a>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>樸莫的个人博客</title>
+  <link href="assets/css/main.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <div class="header">
+    <div class="logo">
+      <a href="#home"> <img src="assets/common/pumo-logo.png" alt="Logo" /></a>
+    </div>
+    <h1 class="title">探索技术的无限可能，享受生活的点滴精彩</h1>
+  </div>
+
+  <div class="nav">
+    <a href="#articles" onclick="showCategory('articles')">技术</a>
+    <a href="#essays" onclick="showCategory('essays')">随笔</a>
+    <a href="about/about.html">关于</a>
+    <div class="social-links">
+      <a href="https://github.com/chenpumo" target="_blank"><img src="assets/common/github.png" alt="GitHub" /></a>
+      <a href="https://www.bilibili.com" target="_blank"><img src="assets/common/bilibili.jpeg" alt="Bilibili" /></a>
+    </div>
+  </div>
+
+  <div id="articles" class="category">
+    <div class="post">
+      <div class="post-left">
+        <h2>
+          <a href="posts/articles/2024-11-17_Stable Diffusion3.5.html">Stable Diffusion 3.5模型加载</a>
+        </h2>
+        <p>
+          Stable Diffusion 是一款免费、开源的 AI 图像生成器。由 Stability AI
+          公司于 2022 年 8 月推出。2024 年 10 月，发布 Stable Diffusion
+          3.5。本文简单介绍SD3.5的模型结构，并通过pytorch加载测试。
+        </p>
+        <p>2024年11月17日</p>
+      </div>
+      <div class="post-right">
+        <img src="posts/articles/images/Stable Diffusion3.5 model.png" alt="Stable Diffusion3.5 model" />
+      </div>
+    </div>
+
+    <div class="post">
+      <div class="post-left">
+        <h2>
+          <a href="posts/articles/2023-08-01_LLM_Essentials01.html">大模型技术精要（一）：深度学习基础</a>
+        </h2>
+        <p>
+          深度学习作为人工智能领域的关键技术，正深刻改变着众多行业的发展格局。从图像识别到自然语言处理，深度学习模型展现出了强大的能力。本文将带你深入了解深度学习的核心概念、训练与推理过程，并通过具体的
+          Python 代码示例，帮助你快速上手。
+        </p>
+        <p>2023年8月1日</p>
+      </div>
+      <div class="post-right">
+        <img src="posts/articles/images/nerual networks.png" alt="neural networks" />
+      </div>
+    </div>
+  </div>
+
+  <div id="essays" class="category hidden">
+    <div class="post">
+      <div class="post-left">
+        <h2>
+          <a href="posts/essays/2025-01-16_essays_01.html">冬日闲云，逸韵蓝天</a>
+        </h2>
+        <p>
+          在多数人的印象里，冬天总是带着几分萧索与凛冽，可在我心中，冬日的蓝天白云，却别有一番闲淡适意的韵致，宛如一首悠然的诗篇，缓缓流淌在岁月的长河里。清晨，当第一缕阳光穿透薄雾，洒向大地，我总会不由自主地望向天空。那片湛蓝，澄澈而深邃，仿佛是一块被岁月打磨得温润剔透的蓝宝石，镶嵌在天地之间。与夏日的湛蓝相比，冬日的蓝多了几分清冷与宁静，恰似一位遗世独立的佳人，不施粉黛却自有一种超凡脱俗的气质。在这片湛蓝的画布上，云朵悠然地飘浮着，像是被大自然随手点染的几笔淡墨，轻盈而又自在......
+        </p>
+        <p>2025年1月16日</p>
+      </div>
+      <div class="post-right">
+        <img src="posts/essays/images/winter.png" alt="winter" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showCategory(category) {
+      document.querySelectorAll(".category").forEach(function (item) {
+        item.classList.add("hidden");
+      });
+      document.getElementById(category).classList.remove("hidden");
+    }
+
+    window.onload = function () {
+      showCategory("articles");
+    };
+  </script>
+</body>
+
 </html>

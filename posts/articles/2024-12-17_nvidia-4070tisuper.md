@@ -1,4 +1,4 @@
-# Nvidia GeForce RTX 4070 深度学习开发环境
+# Nvidia GeForce RTX 4070 深度学习开发环境 + DeepSeek模型
 ## [4070Ti SUPER参数规格](https://www.nvidia.cn/geforce/graphics-cards/40-series/rtx-4070-family/)
 
 ![alt text](<images/GeForce RTX 4070.jpg>)
@@ -78,12 +78,12 @@ y = torch.randn(10, 10).to(device)
 # 在GPU上执行操作
 print(x+y)
 ```
-## Qwen2.5-7B-Instruct模型推理
+## 模型推理(HG)
 ### huggingface Transformers
 pip install transformers
 pip install 'accelerate>=0.26.0'
 
-**Qwen2.5-7B-Instruct离线推理(HG)**
+**Qwen2.5-7B-Instruct离线推理**
 ```
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -128,4 +128,60 @@ print(response)
 
 飞鸟不惊云自淡，一缕香烟绕塔斜。"""
 
+```
+
+**DeepSeek-R1-Distill-Llama-8B离线推理**
+```
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+model_name = "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"
+
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    torch_dtype="auto",
+    device_map="auto"
+)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+prompt = "写一首冬日蓝天白雪的诗"
+messages = [
+    {"role": "system", "content": "You are Qwen, created by Alibaba Cloud. You are a helpful assistant."},
+    {"role": "user", "content": prompt}
+]
+text = tokenizer.apply_chat_template(
+    messages,
+    tokenize=False,
+    add_generation_prompt=True
+)
+model_inputs = tokenizer([text], return_tensors="pt").to(model.device)
+
+generated_ids = model.generate(
+    **model_inputs,
+    max_new_tokens=2048
+)
+generated_ids = [
+    output_ids[len(input_ids):] for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
+]
+
+response = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
+print(response)
+
+"""
+好的，用户希望我写一首关于冬日蓝天白雪的诗。首先，我需要理解冬日的景象，蓝天和白雪是主要元素。蓝天可能暗示着晴朗的天气，而白雪则增添了寒冷和宁静的感觉。
+
+接下来，考虑诗的结构。可能选择五言绝句或者七言律诗，这样更符合传统诗歌的韵律。五言绝句比较简洁，适合表达清新自然的意境。
+
+然后，思考每一句的内容。第一句可以描绘天空的蓝色，比如“天色清澈如蓝天”，第二句描述雪景，比如“银装素裹映寒川”。第三句可以加入一些动态的元素，比如“鸟儿飞过”，增加画面感。最后一句表达冬日的宁静与美好，比如“人间冬日好时节”。
+
+赏析部分需要解释诗中的意象和情感，说明如何通过这些意象传达出冬日的宁静与美丽，以及对生活的珍惜。
+
+最后，检查诗句的押韵和节奏，确保整体流畅自然。这样，整首诗就完成了。
+</think>
+
+《冬日蓝天白雪》
+天色清澈如蓝天，银装素裹映寒川。
+鸟飞过，人间冬日好时节。
+莫道寒冷伤心事，且看雪花飘飘烟。
+
+赏析：这首作品描绘了冬日蓝天白雪的宁静与美丽。通过“天色清澈如蓝天，银装素裹映寒川”的描绘，生动展现了冬日的清新与明亮。诗中“鸟飞过，人间冬日好时节”一句，巧妙地融入了动与静，表达了对冬日生活的珍惜与热爱。尾联“莫道寒冷伤心事，且看雪花飘飘烟”，则进一步以豁达的态度对待寒冷，传递出一种积极向上的生活态度。"""
 ```

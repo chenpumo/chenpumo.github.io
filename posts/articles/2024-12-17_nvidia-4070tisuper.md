@@ -83,7 +83,7 @@ print(x+y)
 pip install transformers
 pip install 'accelerate>=0.26.0'
 
-**Qwen2.5-7B-Instruct离线推理**
+### **Qwen2.5-7B-Instruct推理**
 ```
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -130,7 +130,7 @@ print(response)
 
 ```
 
-**DeepSeek-R1-Distill-Llama-8B离线推理**
+### **DeepSeek-R1-Distill-Llama-8B推理**
 ```
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
